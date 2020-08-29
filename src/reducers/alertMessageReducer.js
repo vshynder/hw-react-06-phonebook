@@ -1,8 +1,6 @@
-export const alertMessageReducer = (state = "", action) => {
-  switch (action.type) {
-    case "TOGGLE_ALERT_MESSAGE":
-      return action.value;
-    default:
-      return state;
-  }
-};
+import { toggleAlertMessage } from "../actions";
+import { createReducer } from "@reduxjs/toolkit";
+
+export const alertMessageReducer = createReducer("", {
+  [toggleAlertMessage.type]: (state, action) => action.payload.value,
+});

@@ -1,38 +1,67 @@
 import shortid from "shortid";
+import { createAction } from "@reduxjs/toolkit";
 
-export const loadFromLS = (key) => {
+export const loadFromLS = createAction("ADD_FORM_LS", (key) => {
   const ls = localStorage.getItem(key);
-  console.log(ls);
   const contacts = JSON.parse(ls);
-  console.log(contacts);
   return {
-    type: "ADD_FORM_LS",
-    data: contacts ? contacts : null,
+    payload: {
+      data: contacts ? contacts : null,
+    },
   };
-};
-
-export const addContact = ({ name, number }) => ({
-  type: "ADD_CONTACT",
-  data: { name, number, id: shortid.generate() },
 });
 
-export const removeContact = (id) => ({
-  type: "REMOVE_CONTACT",
-  data: { id },
+export const addContact = createAction("ADD_CONTACT", ({ name, number }) => {
+  return {
+    payload: {
+      name,
+      number,
+      id: shortid.generate(),
+    },
+  };
 });
 
-export const filter = (value) => ({
-  type: "FILTER",
-  value,
+export const removeContact = createAction("REMOVE_CONTACT", (id) => {
+  return {
+    payload: {
+      id,
+    },
+  };
 });
 
-export const toggleMounted = (value) => ({ type: "TOGGLE_MOUNTED", value });
-export const toggleAlertVisibility = (value) => ({
-  type: "TOGGLE_ALERT_VISIBILITY",
-  value,
+export const filter = createAction("FILTER", (value) => {
+  return {
+    payload: {
+      value,
+    },
+  };
 });
 
-export const toggleAlertMessage = (value) => ({
-  type: "TOGGLE_ALERT_MESSAGE",
-  value,
+export const toggleMounted = createAction("TOGGLE_MOUNTED", (value) => {
+  return {
+    payload: {
+      value,
+    },
+  };
 });
+export const toggleAlertVisibility = createAction(
+  "TOGGLE_ALERT_VISIBILITY",
+  (value) => {
+    return {
+      payload: {
+        value,
+      },
+    };
+  }
+);
+
+export const toggleAlertMessage = createAction(
+  "TOGGLE_ALERT_MESSAGE",
+  (value) => {
+    return {
+      payload: {
+        value,
+      },
+    };
+  }
+);

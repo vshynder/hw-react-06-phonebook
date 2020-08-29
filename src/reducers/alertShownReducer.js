@@ -1,8 +1,6 @@
-export const alertShownReducer = (state = false, action) => {
-  switch (action.type) {
-    case "TOGGLE_ALERT_VISIBILITY":
-      return !state;
-    default:
-      return state;
-  }
-};
+import { toggleAlertVisibility } from "../actions";
+import { createReducer } from "@reduxjs/toolkit";
+
+export const alertShownReducer = createReducer(false, {
+  [toggleAlertVisibility.type]: (state, action) => action.payload.value,
+});

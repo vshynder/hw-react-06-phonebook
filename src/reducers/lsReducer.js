@@ -1,8 +1,6 @@
-export const lsReducer = (state = [], action) => {
-  switch (action.type) {
-    case "ADD_FORM_LS":
-      return action.data;
-    default:
-      return state;
-  }
-};
+import { loadFromLS } from "../actions";
+import { createReducer } from "@reduxjs/toolkit";
+
+export const lsReducer = createReducer([], {
+  [loadFromLS.type]: (state, action) => action.payload.data,
+});
